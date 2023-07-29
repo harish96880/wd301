@@ -1,15 +1,26 @@
 import "./TaskCard.css";
 import React from "react";
 
-let TaskCard = (props) => {
-  console.log(props);
+interface propTitle {
+  status: string;
+  title: string;
+  dueDate: string;
+  assigneeName: string;
+}
+
+let TaskCard: React.FC<propTitle> = ({
+  status,
+  dueDate,
+  title,
+  assigneeName,
+}) => {
   return (
     <div className="TaskItem">
-      <h2 className="text-xl font-bold">{props.title}</h2>
+      <h2 className="text-xl font-bold">{title}</h2>
       <p>
-        {props.status}: {props.dueDate}
+        {status}: {dueDate}
       </p>
-      <p>Assignee Name: {props.asigneeName}</p>
+      <p>Assignee Name: {assigneeName}</p>
     </div>
   );
 };
