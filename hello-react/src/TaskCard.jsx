@@ -1,6 +1,6 @@
 import './TaskCard.css'
 
-let TaskBar = (props) => {
+let TaskCard = (props) => {
     console.log(props);
     return (
         <div className='TaskItem'>
@@ -11,4 +11,4 @@ let TaskBar = (props) => {
     )
 }
 
-export default TaskBar
+export default TaskCard

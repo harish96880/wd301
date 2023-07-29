@@ -1,4 +1,4 @@
-import TaskBar from "./TaskBar"
+import TaskCard from "./TaskCard"
 
 function App() {
   return (
@@ -8,16 +8,16 @@ function App() {
       <div className="card flex flex-row">
       <div>
         <h1 className="text-2xl font-bold my-3">Pending</h1>
-        <TaskBar title = "Build a website" dueDate = "10th April 2023" asigneeName = "Sriharish" status = "Due on"/>
-        <TaskBar title = "Deploy the website" dueDate = "10th October 2023" asigneeName = "Sedhushree" status = "Due on"/>
+        <TaskCard title = "Build a website" dueDate = "10th April 2023" asigneeName = "Sriharish" status = "Due on"/>
+        <TaskCard title = "Deploy the website" dueDate = "10th October 2023" asigneeName = "Sedhushree" status = "Due on"/>
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
   New Task
 </button>
       </div>
       <div>
         <h1 className="text-2xl font-bold my-3">Done</h1>
-        <TaskBar title = "Getting Permission from principal" dueDate = "4th April 2023" asigneeName = "Sriharish" status = "Completed on"/>
-        <TaskBar title = "Build the mockup" dueDate = "12th March 2023" asigneeName = "Sedhushree" status = "Completed on"/>
+        <TaskCard title = "Getting Permission from principal" dueDate = "4th April 2023" asigneeName = "Sriharish" status = "Completed on"/>
+        <TaskCard title = "Build the mockup" dueDate = "12th March 2023" asigneeName = "Sedhushree" status = "Completed on"/>
       </div>
       </div>
     </div>
