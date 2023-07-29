@@ -6,7 +6,7 @@ function App() {
     <div className="m-5">
       <h1 className="text-4xl font-bold my-3">Smarter Tasks</h1>
       <p className="my-2">
-        Project:{" "}
+        Project:
         <span className="text-gray-500">
           Graduation Final Year Project(Revamp College Website)
         </span>
