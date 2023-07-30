@@ -18,13 +18,13 @@ function App() {
             title="Build a website"
             dueDate="10th April 2023"
             assigneeName="Sriharish"
-            status="Due on"
+            completedAtDate="Due on"
           />
           <TaskCard
             title="Deploy the website"
             dueDate="10th October 2023"
             assigneeName="Sedhushree"
-            status="Due on"
+            completedAtDate="Due on"
           />
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             New Task
@@ -36,13 +36,13 @@ function App() {
             title="Getting Permission from principal"
             dueDate="4th April 2023"
             assigneeName="Sriharish"
-            status="Completed on"
+            completedAtDate="Completed on"
           />
           <TaskCard
             title="Build the mockup"
             dueDate="12th March 2023"
             assigneeName="Sedhushree"
-            status="Completed on"
+            completedAtDate="Completed on"
           />
         </div>
       </div>
