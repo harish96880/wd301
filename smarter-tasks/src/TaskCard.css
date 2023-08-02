@@ -1,0 +1,13 @@
+.TaskItem {
+  border: 1px solid #DFDFDF;
+  border-radius: 4px;
+  padding: 10px 20px;
+  margin-top: 12px;
+}
+
+.card{
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(1px);
+    padding: 20px;
+}
