@@ -1,4 +1,3 @@
-import React from "react";
 import TaskForm from "./TaskForm";
 import TaskList from "./TaskList";
 import { taskItem } from "./types";
@@ -7,25 +6,16 @@ import { useLocalStorage } from "./hooks/useLocalStorage";
 interface TaskAppState {
   tasks: taskItem[] 
 }
-interface TaskAppProp {
-}
 
-const TaskApp = (props:TaskAppProp) => {
+const TaskApp = () => {
   const [taskAppState, setTaskAppState] = useLocalStorage<TaskAppState>("tasks",{
     tasks: [],
   });
 
-  // React.useEffect(()=>{
-  //   const id = setTimeout(() => {
-  //     console.log(`Saved ${taskAppState.tasks.length} items to backend...`);
-      
-  //   }, 5000);
-  //   return () => {
-  //     console.log("clear or cancel any existing network call");
-  //     clearTimeout(id)
-      
-  //   }
-  // }, [taskAppState.tasks])
+  const deleteTaskItem = (id: number) => {
+    taskAppState.tasks.splice(id, 1)
+    setTaskAppState({ tasks: [...taskAppState.tasks] })
+  }
   const addTask = (task: taskItem) => {
     setTaskAppState({ tasks: [...taskAppState.tasks, task] });
   };
@@ -44,7 +34,7 @@ const TaskApp = (props:TaskAppProp) => {
             Pending
           </h1>
           <TaskForm addTask={addTask} />
-          <TaskList tasks={taskAppState.tasks} />
+          <TaskList deleteTaskItem={deleteTaskItem} tasks={taskAppState.tasks} />
         </div>
       </div>
     </div>

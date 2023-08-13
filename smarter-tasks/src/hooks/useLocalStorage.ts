@@ -7,6 +7,7 @@ const getStoredValue = <T>(key: string, defaultValue: T): T => {
     return defaultValue;
   };
 
+
 export const useLocalStorage = <T,>(
     key: string,
     defaultValue: T
