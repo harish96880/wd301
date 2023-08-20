@@ -2,14 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: monospace;
+.homePage {
+  background-image: url('https://images.pexels.com/photos/691668/pexels-photo-691668.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+  background-size: cover;
 }
 
-body{
-    background-image: url('https://r4.wallpaperflare.com/wallpaper/531/951/621/digital-digital-art-artwork-illustration-minimalism-hd-wallpaper-08869d3810a06c28a09cf1be487204ea.jpg');
-    background-size: cover;
+.signinPage {
+  background-image: url('https://images.pexels.com/photos/691668/pexels-photo-691668.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+  background-size: cover;
+}
+
+.taskDetail {
+  background-image: url('https://img.freepik.com/free-vector/watercolor-mountains-background_23-2149253972.jpg?w=1060&t=st=1692540039~exp=1692540639~hmac=9284a78ade46923de1e0a8006ff404ce8b00eb2694d3f3e08e64d93e4405b120');
+  background-size: cover;
+  color: white;
+  font-size: 18px;
+  text-transform: uppercase;
 }

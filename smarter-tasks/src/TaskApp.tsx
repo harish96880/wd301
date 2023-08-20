@@ -1,29 +1,44 @@
+import { TaskItem } from "./types";
 import TaskForm from "./TaskForm";
-import TaskList from "./TaskList";
-import { taskItem } from "./types";
 import { useLocalStorage } from "./hooks/useLocalStorage";
+import TaskList from "./TaskList";
 
 interface TaskAppState {
-  tasks: taskItem[] 
+  tasks: TaskItem[];
 }
 
 const TaskApp = () => {
-  const [taskAppState, setTaskAppState] = useLocalStorage<TaskAppState>("tasks",{
-    tasks: [],
-  });
+  const [taskAppState, setTaskAppState] = useLocalStorage<TaskAppState>(
+    "tasks",
+    {
+      tasks: [],
+    }
+  );
 
-  const deleteTaskItem = (id: number) => {
-    taskAppState.tasks.splice(id, 1)
-    setTaskAppState({ tasks: [...taskAppState.tasks] })
-  }
-  const addTask = (task: taskItem) => {
-    setTaskAppState({ tasks: [...taskAppState.tasks, task] });
+  const addTask = (task: TaskItem) => {
+    const nextId =
+      taskAppState.tasks.length > 0
+        ? taskAppState.tasks[taskAppState.tasks.length - 1].id! + 1
+        : 1;
+
+    const newTask: TaskItem = {
+      id: nextId,
+      title: task.title,
+      description: task.description,
+      dueDate: task.dueDate,
+    };
+    setTaskAppState({ tasks: [...taskAppState.tasks, newTask] });
   };
+  const removeTask = (taskToRemove: TaskItem) => {
+    const updatedTasks = taskAppState.tasks.filter(
+      (task) => task.id !== taskToRemove.id
+    );
+    setTaskAppState({ tasks: updatedTasks });
+  };
+
   return (
-    <div className="container py-10 max-w-4xl mx-auto">
-      <h1 className="text-3xl mb-2 font-bold text-slate-700">
-        Smarter Tasks
-      </h1>
+    <div className="py-10 max-w-4xl mx-auto">
+      <h1 className="text-3xl mb-2 font-bold text-slate-700">Smarter Tasks</h1>
       <h1 className="text-lg mb-6 text-slate-600">
         <span className="font-bold">Project: </span>
         Graduation Final Year Project (Revamp college website)
@@ -34,11 +49,17 @@ const TaskApp = () => {
             Pending
           </h1>
           <TaskForm addTask={addTask} />
-          <TaskList deleteTaskItem={deleteTaskItem} tasks={taskAppState.tasks} />
+          <ol>
+            <li>
+              <TaskList
+                tasks={taskAppState.tasks}
+                deleteTaskItem={removeTask}
+              />
+            </li>
+          </ol>
         </div>
       </div>
     </div>
   );
 };
-
-export default TaskApp
+export default TaskApp;

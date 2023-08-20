@@ -1,17 +1,22 @@
 import Task from "./Task";
-import { taskItem } from "./types";
+import { TaskItem } from "./types";
 
-interface Props {
-  tasks: taskItem[];
-  deleteTaskItem: (id:number) => void
+interface TaskListProps {
+  tasks: TaskItem[];
+  deleteTaskItem: (task: TaskItem) => void;
 }
 
-const TaskList = (props:Props) => {
-  const list = props.tasks.map((task, id) => (
-    <Task key={id} title={task.title} date={task.date} desc={task.desc} deleteTaskItem={() => { props.deleteTaskItem(id) }} />
+const TaskList = (props: TaskListProps) => {
+  const { deleteTaskItem } = props;
+  const list = props.tasks.map((task) => (
+    <li>
+      <Task item={task} deleteTaskItem={deleteTaskItem} />
+    </li>
   ));
-    return <>{list}</>
-
-}
-
+  return (
+    <>
+      <ul>{list}</ul>
+    </>
+  );
+};
 export default TaskList;
