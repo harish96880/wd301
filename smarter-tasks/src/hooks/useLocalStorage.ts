@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const getStoredValue = <T>(key: string, defaultValue: T): T => {
   const savedItem = localStorage.getItem(key);
   if (savedItem) {
-    return JSON.parse(savedItem);
+    return JSON.parse(savedItem) as T;
   }
   return defaultValue;
 };

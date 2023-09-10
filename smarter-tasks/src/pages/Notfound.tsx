@@ -1,18 +1,19 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const NotfoundPage: React.FC = () => {
+const NotFound: React.FC = () => {
   return (
     <div>
-      <h1>404</h1>
-      <h1>Page not found</h1>
-      <button
+      <p>404 Not Found</p>
+      <Link
+        to="/home"
         id="backToHomeButton"
-        className="px-3 py-1 my-3 bg-gray-200 hover:bg-gray-300 rounded"
+        className="inline-block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       >
-        <a href="/home">Back to home</a>
-      </button>
+        Go Home
+      </Link>
     </div>
   );
 };
 
-export default NotfoundPage;
+export default NotFound;
