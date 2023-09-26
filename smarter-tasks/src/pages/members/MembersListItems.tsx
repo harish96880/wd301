@@ -22,10 +22,10 @@ const MembersListitems = () => {
   return (
     <>
       {members.map((member: Member) => (
-        <div key={member.id} className="flex p-4 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+        <div key={member.id} className="w-100 flex p-5 bg-white border border-gray-100  shadow hover:bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:hover:bg-gray-600 rounded-xl">
           <div className="">
-            <h5 className="text-lg font-medium tracking-tight text-gray-900 dark:text-white">Name: {member.name}</h5>
-            <h5 className="text-lg font-medium tracking-tight text-gray-900 dark:text-white">Email: {member.email}</h5>
+            <h5 className="text-lg font-medium tracking-tight text-gray-900 dark:text-white">Name: <span className="text-gray">{member.name}</span></h5>
+            <h5 className="text-lg font-medium tracking-tight text-gray-900 dark:text-white">Email: <span className="text-gray">{member.email}</span></h5>
           </div>
           <div className="flex-grow">
             <button onClick={() => removeMember(member.id)} className="float-right">
