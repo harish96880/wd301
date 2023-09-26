@@ -8,7 +8,7 @@ import Projects from "../pages/projects";
 import Members from "../pages/members";
 import Logout from "../pages/logout";
 import { MembersProvider } from "../context/members/context";
-import { NotFound } from "../pages/NotFound";
+import { NotFound } from "../pages/Notfound";
 
 const router = createBrowserRouter([
   { path: "/", element: <Navigate to="/account/projects" replace /> },
