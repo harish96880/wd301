@@ -1,8 +1,7 @@
-interface Member {
+export interface Member {
   id: number;
   name: string;
   email: string;
-  password: string;
 }
 export interface MemberState {
   members: Member[];
@@ -14,22 +13,17 @@ export const initialState: MemberState = {
   members: [],
   isLoading: false,
   isError: false,
-  errorMessage: "",
-};
-
-export type MembersActions =
+  errorMessage: ""
+}
+export type MembersAction =
   | { type: "FETCH_MEMBERS_REQUEST" }
   | { type: "FETCH_MEMBERS_SUCCESS"; payload: Member[] }
   | { type: "FETCH_MEMBERS_FAILURE"; payload: string }
-  | { type: "ADD_MEMBER_SUCCESS"; payload: Member }
-  | { type: "DELETE_MEMBER_ERROR"; payload: string }
-  | { type: "DELETE_MEMBER_END" }
-  | { type: "DELETE_MEMBER_START" };
+  | { type: "ADD_MEMBERS_SUCCESS"; payload: Member }
+  | { type: "DELETE_MEMBERS_SUCCESS" }
 
-export const reducer = (
-  state: MemberState = initialState,
-  action: MembersActions
-): MemberState => {
+
+export const reducer = (state: MemberState = initialState, action: MembersAction): MemberState => {
   switch (action.type) {
     case "FETCH_MEMBERS_REQUEST":
       return {
@@ -40,38 +34,25 @@ export const reducer = (
       return {
         ...state,
         isLoading: false,
-        members: action.payload,
+        members: action.payload
       };
     case "FETCH_MEMBERS_FAILURE":
       return {
         ...state,
         isLoading: false,
         isError: true,
-        errorMessage: action.payload,
-      };
-    case "ADD_MEMBER_SUCCESS":
+        errorMessage: action.payload
+      }
+    case "ADD_MEMBERS_SUCCESS":
       return {
         ...state,
-        members: [...state.members, action.payload],
-      };
-    case "DELETE_MEMBER_START":
+        members: [...state.members, action.payload]
+      }
+    case "DELETE_MEMBERS_SUCCESS":
       return {
-        ...state,
-        isLoading: true,
-      };
-    case "DELETE_MEMBER_END":
-      return {
-        ...state,
-        isLoading: false,
-      };
-    case "DELETE_MEMBER_ERROR":
-      return {
-        ...state,
-        isLoading: false,
-        isError: true,
-        errorMessage: "Unable to Delete",
-      };
+        ...state
+      }
     default:
       return state;
   }
-};
+}

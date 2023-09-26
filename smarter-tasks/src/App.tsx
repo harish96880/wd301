@@ -1,25 +1,18 @@
-import  { useContext } from "react";
+import { useContext } from "react";
 import { RouterProvider } from "react-router-dom";
-import "./App.css";
-import router from "./routes";
 import { ThemeContext } from "./context/theme";
-import { ProjectsProvider } from "./context/projects/context";
-import { MembersProvider } from "./context/members/context";
-const App = () => {
-  let { theme } = useContext(ThemeContext);
 
+import router from "./routes"
+import { ProjectsProvider } from "./context/projects/context";
+
+const App = () => {
+  const currentTheme = useContext(ThemeContext)
   return (
-    <div
-      className={`h-screen w-full mx-auto py-2 ${
-        theme === "dark" ? "dark" : ""
-      }`}
-    >
+    <div className={`h-screen w-full mx-auto py-2 ${currentTheme.theme === "dark" ? "dark" : ""}`}>
       <ProjectsProvider>
-        <MembersProvider>
-          <RouterProvider router={router} />
-        </MembersProvider>
+        <RouterProvider router={router} />
       </ProjectsProvider>
     </div>
   );
-};
+}
 export default App;

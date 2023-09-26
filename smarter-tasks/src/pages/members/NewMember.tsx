@@ -1,58 +1,47 @@
-import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import React, { Fragment, useState } from "react";
+import { Dialog, Transition } from '@headlessui/react'
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useMemberDispatch } from "../../context/members/context";
+import { addMembers } from "../../context/members/action";
 
-import { addMember } from "../../context/members/actions";
-import { useMembersDispatch } from "../../context/members/context";
-type Inputs = {
+export type Inputs = {
   name: string;
   email: string;
   password: string;
 };
 const NewMember = () => {
-  let [isOpen, setIsOpen] = useState(false);
+  const dispatchMembers = useMemberDispatch();
+  const [isOpen, setIsOpen] = useState(false);
+  const [error, setError] = useState(null)
+  const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
 
-  const [error, setError] = useState(null);
-
-  const dispatchMembers = useMembersDispatch();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Inputs>();
-  const closeModal = () => {
-    setIsOpen(false);
-  };
-  const openModal = () => {
+  const openModel = () => {
     setIsOpen(true);
-  };
+  }
+  const closeModel = () => {
+    setIsOpen(false);
+  }
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    const { name, email, password } = data;
-    console.log(data);
-    const response = await addMember(dispatchMembers, {
-      name,
-      email,
-      password,
-    });
-
+    const response = await addMembers(dispatchMembers, data);
     if (response.ok) {
-      setIsOpen(false);
+      setIsOpen(false)
     } else {
-      setError(response.error as React.SetStateAction<null>);
+      setError(response.error as React.SetStateAction<null>)
     }
-  };
+  }
   return (
     <>
       <button
-        type="button"
-        id="new-member-btn"
-        onClick={openModal}
         className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+        onClick={openModel}
       >
-        New Member
+        Add User
       </button>
-      <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+      <Transition show={isOpen}>
+        <Dialog
+          onClose={() => closeModel()}
+          className="relative z-50"
+        >
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -60,85 +49,51 @@ const NewMember = () => {
             enterTo="opacity-100"
             leave="ease-in duration-200"
             leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
+            leaveTo="opacity-0">
+            <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
           </Transition.Child>
-          <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-              >
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0 scale-95"
+            enterTo="opacity-100 scale-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100 scale-100"
+            leaveTo="opacity-0 scale-95">
+            <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
+              <div className="flex min-h-full items-center justify-center text-center">
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <Dialog.Title
-                    as="h3"
+                  <Dialog.Title as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    Create New Member
-                  </Dialog.Title>
+                    Add New User</Dialog.Title>
                   <div className="mt-2">
                     <form onSubmit={handleSubmit(onSubmit)}>
-                      {error && <span>{error}</span>}
-                      <input
-                        type="text"
-                        placeholder="Enter Member Name"
+                      {error &&
+                        <span>{error}</span>
+                      }
+                      <input type="text" placeholder="Enter name" className={`border w-full py-2 px-3 my-3 ${errors.name ? 'border-red-500' : ''}`}
                         autoFocus
-                        id="name"
-                        {...register("name", { required: true })}
-                        className={`w-full border rounded-md py-2 px-3 my-4 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue ${
-                          errors.name ? "border-red-500" : ""
-                        }`}
-                      />
-                      {errors.name && <span className="text-red-500 text-sm">This field is mandatory</span>}
-                      <input
-                        type="email"
-                        placeholder="Enter Member Email"
-                        id="email"
-                        {...register("email", { required: true })}
-                        className={`w-full border rounded-md py-2 px-3 my-4 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue ${
-                          errors.email ? "border-red-500" : ""
-                        }`}
-                      />
-                      {errors.email && <span className="text-red-500 text-sm">This field is mandatory</span>}
-                      <input
-                        type="password"
-                        id="password"
-                        placeholder="Enter Password"
-                        {...register("password", { required: true })}
-                        className={`w-full border rounded-md py-2 px-3 my-4 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue ${
-                          errors.password ? "border-red-500" : ""
-                        }`}
-                      />
-                      {errors.password && <span className="text-red-500 text-sm">This field is mandatory</span>}
-                      <button
-                        type="submit"
-                        id="create-member-btn"
-                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 mr-2 text-sm font-medium text-white hover:bg-blue-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      >
+                        {...register('name', { required: true })} />
+                      <input type="email" placeholder="Enter email" className={`border w-full py-2 px-3 my-3 ${errors.email ? 'border-red-500' : ''}`}
+                        autoFocus
+                        {...register('email', { required: true })} />
+                      <input type="password" placeholder="Enter password" className={` border w-full py-2 px-3 my-3 ${errors.password ? 'border-red-500' : ''}`}
+                        autoFocus
+                        {...register('password', { required: true })} />
+                      <button type="submit" className="justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 mr-2 text-sm font-medium text-white hover:bg-blue-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
                         Submit
-                      </button>
-                      <button
-                        type="submit"
-                        onClick={closeModal}
-                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      >
-                        Cancel
                       </button>
                     </form>
                   </div>
                 </Dialog.Panel>
-              </Transition.Child>
+              </div>
             </div>
-          </div>
-        </Dialog>
+          </Transition.Child>
+        </Dialog >
       </Transition>
     </>
-  );
-};
+  )
+}
+
 export default NewMember;

@@ -2,34 +2,30 @@ interface Project {
   id: number;
   name: string;
 }
-export interface ProjectState {
+export interface ProjectsState {
   projects: Project[];
   isLoading: boolean;
   isError: boolean;
   errorMessage: string;
 }
-export const initialState: ProjectState = {
+export const initialState: ProjectsState = {
   projects: [],
   isLoading: false,
   isError: false,
-  errorMessage: "",
+  errorMessage: ''
 };
-
 export type ProjectsActions =
-  | { type: "FETCH_PROJECTS_REQUEST" }
-  | { type: "FETCH_PROJECTS_SUCCESS"; payload: Project[] }
-  | { type: "FETCH_PROJECTS_FAILURE"; payload: string }
-  | { type: "ADD_PROJECT_SUCCESS"; payload: Project };
+  | { type: 'FETCH_PROJECTS_REQUEST' }
+  | { type: 'FETCH_PROJECTS_SUCCESS'; payload: Project[] }
+  | { type: 'FETCH_PROJECTS_FAILURE'; payload: string }
+  | { type: 'ADD_PROJECT_SUCCESS'; payload: Project }
 
-export const reducer = (
-  state: ProjectState = initialState,
-  action: ProjectsActions
-): ProjectState => {
+export const reducer = (state: ProjectsState = initialState, action: ProjectsActions): ProjectsState => {
   switch (action.type) {
     case "FETCH_PROJECTS_REQUEST":
       return {
         ...state,
-        isLoading: true,
+        isLoading: true
       };
     case "FETCH_PROJECTS_SUCCESS":
       return {
@@ -42,14 +38,11 @@ export const reducer = (
         ...state,
         isLoading: false,
         isError: true,
-        errorMessage: action.payload,
+        errorMessage: action.payload
       };
-    case "ADD_PROJECT_SUCCESS":
-      return {
-        ...state,
-        projects:[...state.projects,action.payload]
-      };
+    case 'ADD_PROJECT_SUCCESS':
+      return { ...state, projects: [...state.projects, action.payload] };
     default:
       return state;
   }
-};
+}
