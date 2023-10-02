@@ -1,18 +1,17 @@
 import { Navigate, createBrowserRouter } from "react-router-dom";
-import NewTask from "../pages/tasks/NewTask";
-import { Outlet } from "react-router-dom";
-import ProjectContainer from "../pages/projects/ProjectContainer";
-import ProjectDetails from "../pages/project_details";
-
 import Signin from "../pages/signin"
 import Signup from "../pages/signup"
 import AccountLayout from "../layouts/account";
-import ProtectedRoute from "./ProtectedRoutes";
 import Projects from "../pages/projects";
 import Members from "../pages/members";
-import Logout from "../pages/logout";
 import { MembersProvider } from "../context/members/context";
 import { NotFound } from "../pages/Notfound";
+import Logout from "../pages/logout";
+import ProjectDetails from "../pages/project_details";
+import ProtectedRoutes from "./ProtectedRoutes";
+import ProjectContainer from "../pages/projects/ProjectContainer";
+import TaskDetailsContainer from "../pages/tasks/TaskDetailsContainer";
+import NewTask from "../pages/tasks/NewTask";
 
 const router = createBrowserRouter([
   { path: "/", element: <Navigate to="/account/projects" replace /> },
@@ -39,9 +38,9 @@ const router = createBrowserRouter([
   {
     path: "/account",
     element: (
-      <ProtectedRoute>
+      <ProtectedRoutes>
         <AccountLayout />
-      </ProtectedRoute>
+      </ProtectedRoutes>
     ),
     children: [
       { index: true, element: <Navigate to="/account/projects" replace /> },
@@ -58,15 +57,11 @@ const router = createBrowserRouter([
               {
                 path: "tasks",
                 children: [
-                  { index: true, element: <Navigate to="../" /> },
-                  {
-                    path: "new",
-                    // Render `NewTask` component
-                    element: <NewTask />,
-                  },
+                  { index: true, element: <Navigate to="../" replace /> },
+                  { path: "new", element: <NewTask /> },
                   {
                     path: ":taskID",
-                    children: [{ index: true, element: <>Show Task Details</> }],
+                    children: [{ index: true, element: <TaskDetailsContainer /> }],
                   },
                 ],
               },
@@ -74,6 +69,7 @@ const router = createBrowserRouter([
           },
         ],
       },
+
       {
         path: "members",
         element: (

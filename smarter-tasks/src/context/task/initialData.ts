@@ -5,7 +5,7 @@ const initialData: ProjectData = {
     pending: {
       id: "pending",
       title: "Pending",
-      taskIDs: ["2"],
+      taskIDs: ["2", "3"],
     },
     in_progress: {
       id: "in_progress",
@@ -30,6 +30,15 @@ const initialData: ProjectData = {
     },
     "2": {
       id: 2,
+      title: "Another Sample Task",
+      description: "Sample description about the task which is to be completed",
+      dueDate: "",
+      state: "pending",
+      assignee: undefined,
+      assignedUserName: undefined
+    },
+    "3": {
+      id: 3,
       title: "Another Sample Task",
       description: "Sample description about the task which is to be completed",
       dueDate: "",

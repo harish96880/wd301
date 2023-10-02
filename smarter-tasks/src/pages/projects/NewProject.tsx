@@ -1,8 +1,8 @@
 import { Dialog, Transition } from '@headlessui/react'
+import { addProject } from '../../context/projects/actions';
 import { Fragment, useState } from 'react'
 import { useProjectsDispatch } from "../../context/projects/context";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { addProject } from '../../context/projects/actions';
 type Inputs = {
   name: string
 };
@@ -20,11 +20,9 @@ const NewProject = () => {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const { name } = data
     const response = await addProject(dispatchProjects, { name })
-
     if (response.ok) {
       setIsOpen(false)
     } else {
-
       setError(response.error as React.SetStateAction<null>)
     }
   };
@@ -33,6 +31,7 @@ const NewProject = () => {
       <button
         type="button"
         onClick={openModal}
+        id='newProjectBtn'
         className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
       >
         New Project
@@ -76,6 +75,7 @@ const NewProject = () => {
                       <input
                         type="text"
                         placeholder='Enter project name...'
+                        id='name'
                         autoFocus
                         {...register('name', { required: true })}
                         className={`w-full border rounded-md py-2 px-3 my-4 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue ${errors.name ? 'border-red-500' : ''
@@ -85,7 +85,7 @@ const NewProject = () => {
                       <button type="submit" className="inline-flex justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 mr-2 text-sm font-medium text-white hover:bg-blue-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
                         Submit
                       </button>
-                      <button type="submit" onClick={closeModal} className="inline-flex  justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                      <button type="submit" id='submitNewProjectBtn' onClick={closeModal} className="inline-flex  justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
                         Cancel
                       </button>
                     </form>

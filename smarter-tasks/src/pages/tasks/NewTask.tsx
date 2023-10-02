@@ -8,10 +8,10 @@ import { addTask } from "../../context/task/actions";
 import { TaskDetailsPayload } from "../../context/task/types";
 
 const NewTask = () => {
-  let [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(true);
 
-  let { projectID } = useParams();
-  let navigate = useNavigate();
+  const { projectID } = useParams();
+  const navigate = useNavigate();
 
   // Use react-hook-form to create form submission handler and state.
   const {
@@ -85,7 +85,7 @@ const NewTask = () => {
                         id="title"
                         // Register the title field
                         {...register("title", { required: true })}
-                        className="w-full border rounded-md py-2 px-3 my-4 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue"
+                        className={`w-full border rounded-md py-2 px-3 my-4 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue ${errors.title ? 'border-red-500' : ''}`}
                       />
                       <input
                         type="text"
