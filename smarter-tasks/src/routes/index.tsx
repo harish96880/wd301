@@ -8,7 +8,7 @@ import { MembersProvider } from "../context/members/context";
 import { NotFound } from "../pages/Notfound";
 import Logout from "../pages/logout";
 import ProjectDetails from "../pages/project_details";
-import ProtectedRoutes from "./ProtectedRoutes";
+import ProtectedRoutes from "./ProtectedRoute";
 import ProjectContainer from "../pages/projects/ProjectContainer";
 import TaskDetailsContainer from "../pages/tasks/TaskDetailsContainer";
 import NewTask from "../pages/tasks/NewTask";
